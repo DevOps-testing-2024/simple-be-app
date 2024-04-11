@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS Description (
+    id BIGSERIAL PRIMARY KEY,
+    details VARCHAR(255) NOT NULL
+);

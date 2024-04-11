@@ -1,0 +1,51 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.3'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'com.gorylenko.gradle-git-properties' version '2.4.1' apply false
+	id 'application'
+}
+
+application {
+	mainClass = 'com.simple.app.SimpleApplication'
+}
+
+description = 'Simple BE App'
+
+ext {
+	set('springBootVersion', '3.2.3')
+}
+
+java {
+	sourceCompatibility = '21'
+}
+
+allprojects {
+	apply from: "$rootDir/repos.gradle"
+	apply plugin: 'idea'
+}
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'org.springframework.boot'
+
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+		}
+	}
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  postgres_db:
+    image: postgres
+    container_name: simple_database_container
+    ports:
+      - "3307:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: simple-db
+    volumes:
+      - ./simple-app/src/main/resources/db/db_init.sql:/docker-entrypoint-initdb.d/db_init.sql
+    restart: always

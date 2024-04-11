@@ -1,0 +1,4 @@
+rootProject.name = 'simple-be-app'
+include 'simple-app'
+include 'simple-api'
+
