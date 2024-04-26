@@ -33,10 +33,10 @@ public class DescriptionServiceImpl implements DescriptionService {
 
     @Override
     public void updateDescription(long descriptionId, DescriptionRequestDto descriptionRequestDto) {
-        Description description = descriptionRepository.findById(descriptionId).orElse(null);
-        if (description != null) {
-            description.setDetails(descriptionRequestDto.getDetails());
-            descriptionRepository.save(description);
+        Description existingDescription = descriptionRepository.findById(descriptionId).orElse(null);
+        if (existingDescription != null) {
+            existingDescription.setDetails(descriptionRequestDto.getDetails());
+            descriptionRepository.save(existingDescription);
         }
     }
 
