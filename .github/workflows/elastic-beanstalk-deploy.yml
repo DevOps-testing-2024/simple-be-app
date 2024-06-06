@@ -16,6 +16,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }} 
+    outputs:
+      app_name: ${{ steps.get_project_info.outputs.app_name }}
+      version_label: ${{ steps.get_project_info.outputs.version_label }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 21
@@ -31,7 +34,8 @@ jobs:
           appName="${projectName}-${version}"
           versionLabel="${version}-${GITHUB_SHA}"
           echo "APP_NAME=$appName" >> $GITHUB_ENV
-          echo "VERSION_LABEL=$versionLabel" >> $GITHUB_ENV
+          echo "::set-output name=app_name::${appName}"
+          echo "::set-output name=version_label::${versionLabel}"
       - name: Set executable permission for Gradlew
         run: chmod +x ./gradlew
       - name: Clean and Build
@@ -58,6 +62,6 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: ${{ vars.AWS_APPLICATION_NAME }}
           environment_name: ${{ vars.AWS_ENVIRONMENT_NAME }}
-          version_label: ${{ env.VERSION_LABEL }}
+          version_label: ${{ needs.build.outputs.version_label }}
           region: ${{ vars.AWS_REGION }}
-          deployment_package: ${{ env.APP_NAME }}.jar
+          deployment_package: ${{ needs.build.outputs.app_name }}.jar
