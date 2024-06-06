@@ -32,7 +32,9 @@ jobs:
           versionLabel="${version}-${GITHUB_SHA}"
           echo "APP_NAME=$appName" >> $GITHUB_ENV
           echo "VERSION_LABEL=$versionLabel" >> $GITHUB_ENV
-      - name: build with gradlew
+      - name: Set executable permission for Gradlew
+        run: chmod +x ./gradlew
+      - name: Clean and Build
         run: ./gradlew clean build
       - name: Upload JAR
         uses: actions/upload-artifact@v2
