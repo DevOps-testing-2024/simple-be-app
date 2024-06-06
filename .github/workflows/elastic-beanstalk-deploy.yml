@@ -22,6 +22,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 21
+          distribution: 'temurin'
       - name: Extract project name and version from gradle.properties
         id: get_project_info
         run: |
