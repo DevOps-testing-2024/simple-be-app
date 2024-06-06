@@ -32,6 +32,7 @@ jobs:
           projectName=$(grep '^projectName=' gradle.properties | cut -d'=' -f2)
           version=$(grep '^version=' gradle.properties | cut -d'=' -f2)
           appName="${projectName}-${version}"
+          timestamp=$(date +%s)
           versionLabel="${version}-${timestamp}"
           echo "APP_NAME=$appName" >> $GITHUB_ENV
           echo "::set-output name=app_name::${appName}"
