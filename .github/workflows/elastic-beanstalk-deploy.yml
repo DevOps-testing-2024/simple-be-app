@@ -32,7 +32,7 @@ jobs:
           projectName=$(grep '^projectName=' gradle.properties | cut -d'=' -f2)
           version=$(grep '^version=' gradle.properties | cut -d'=' -f2)
           appName="${projectName}-${version}"
-          versionLabel="${version}-${GITHUB_SHA}"
+          versionLabel="${version}-${timestamp}"
           echo "APP_NAME=$appName" >> $GITHUB_ENV
           echo "::set-output name=app_name::${appName}"
           echo "::set-output name=version_label::${versionLabel}"
@@ -55,7 +55,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: jar-artifact
-      - name: Deploy to EB
+      - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v20
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
