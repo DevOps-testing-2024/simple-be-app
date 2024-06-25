@@ -1,0 +1,33 @@
+#spring:
+#  config:
+#    activate:
+#      on-profile: dev
+#
+#cloud:
+#  aws:
+#    region:
+#      static: us-west-2
+#    credentials:
+#      profile-name: default
+#
+##aws:
+##  region:
+##    static: eu-central-1
+##  paramstore:
+##    enabled: true
+##    name: simple-app
+##    prefix: /config
+##    profileSeparator: /
+spring:
+  cloud:
+    config:
+      server:
+        awsparamstore:
+          region: eu-central-1
+          endpoint: https://ssm.eu-central-1.amazonaws.com
+          name: simple-app
+          prefix: /config
+          profile-separator: /
+          recursive: true
+          decrypt-values: true
+          max-results: 5
