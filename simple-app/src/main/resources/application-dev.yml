@@ -1,12 +1,6 @@
-# Tomcat Configuration
-server:
-  port: 8003
-
 logging:
   level:
     root: INFO
-  file:
-    name: application.log
 
 management:
   endpoints:
@@ -27,9 +21,9 @@ spring:
       minimumIdle: 4 #minimum number of idle connections maintained in a connection pool
       idleTimeout: 600000 #maximum idle time for connection
       maxLifetime: 1800000 #maximum lifetime in milliseconds of a connection after it is closed
-    url: jdbc:postgresql://localhost:3307/simple-db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: root
-    password: root
+    url: "${db.url}"
+    username: "${db.username}"
+    password: "${db.password}"
   jpa:
     hibernate:
       ddl-auto: validate
