@@ -64,5 +64,5 @@ jobs:
           application_name: ${{ vars.AWS_APPLICATION_NAME }}
           environment_name: ${{ vars.AWS_ENVIRONMENT_NAME }}
           version_label: ${{ needs.build.outputs.version_label }}
-          region: ${{ vars.AWS_REGION }}
+          region: ${{ secrets.AWS_REGION }}
           deployment_package: ${{ needs.build.outputs.app_name }}.jar
